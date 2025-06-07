@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rock Paper Scissors</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f4f4f4;
+      padding-top: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .choices {
+      margin: 20px 0;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background-color: #007BFF;
+      color: white;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #444;
+    }
+
+    #play-again {
+      display: none;
+      margin-top: 20px;
+      background-color: #28a745;
+    }
+
+    #play-again:hover {
+      background-color: #1e7e34;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎮 Rock, Paper, Scissors</h1>
+  <div class="choices">
+    <button onclick="playGame('rock')">🪨 Rock</button>
+    <button onclick="playGame('paper')">📄 Paper</button>
+    <button onclick="playGame('scissors')">✂️ Scissors</button>
+  </div>
+
+  <div id="result"></div>
+
+  <button id="play-again" onclick="resetGame()">Play Again</button>
+
+  <script>
+    function getComputerChoice() {
+      const options = ['rock', 'paper', 'scissors'];
+      return options[Math.floor(Math.random() * options.length)];
+    }
+
+    function determineWinner(user, computer) {
+      if (user === computer) {
+        return "It's a tie!";
+      } else if (
+        (user === "rock" && computer === "scissors") ||
+        (user === "paper" && computer === "rock") ||
+        (user === "scissors" && computer === "paper")
+      ) {
+        return "You win!";
+      } else {
+        return "Computer wins!";
+      }
+    }
+
+    function playGame(userChoice) {
+      const computerChoice = getComputerChoice();
+      const resultText = determineWinner(userChoice, computerChoice);
+
+      document.getElementById("result").innerHTML = `
+        <p>You chose: <strong>${userChoice}</strong></p>
+        <p>Computer chose: <strong>${computerChoice}</strong></p>
+        <p><strong>${resultText}</strong></p>
+      `;
+      document.getElementById("play-again").style.display = "inline-block";
+    }
+
+    function resetGame() {
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("play-again").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
+
